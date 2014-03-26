@@ -1,0 +1,24 @@
+﻿Pitch:
+Cooking is every bit an art as painting and photography. Other recipe apps on phones and online will only provide a way to save what others have done, a paint by numbers recipe. Our app will provide ways to import recipes and edit the types, amount, and use of each ingredient to make it truly your own. 
+
+
+Description:
+Allow users to create, find and edit recipes. When a new recipe is found online, the recipe can be sent to the owner’s own database, edited, and sent back out for others to use. We will have editing software to edit the different steps in the recipe as well as the ingredients required by the recipe. 
+
+
+Features:
+-add new recipe (to be done this semester)
+-search recipes (to be done this semester)
+-edit recipes (to be done this semester)
+-Build a shopping list (to be done this semester)
+-Perpetuate and remember what was bought 
+-app front for both iOS and Android
+-voice command on iphone and android phones to jump to the next step in cooking
+-
+-ways to sell recipes if the user wished for any fee they desire
+
+
+Architecture:
+Database: Document style database in mongoDB
+Back end: Flask
+Front end: Flask
