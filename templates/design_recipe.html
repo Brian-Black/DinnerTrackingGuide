@@ -145,25 +145,48 @@
   </head>
   
   <body>
-    <div class="gwd-div-dr7v">Belgian Waffles</div>
+    {% if name %}
+    <div class="gwd-div-dr7v">{{name}}</div>
+    {% else %}
+    <div class="gwd-div-dr7v">Recipe Name</div>
+    {% endif %}
+	<div class="gwd-div-zdpr gwd-div-0vu6 gwd-div-l5xo"><a href="/my_recipes/">Add to My Recipes</a></div>
+    <div class="gwd-div-zdpr gwd-div-0vu6 gwd-div-xk6z"><a href="/shopping/">Add to Shopping List</a></div>
+    <div class="gwd-div-zdpr gwd-div-qm1a gwd-div-mkkx"><a href="/">Home</a></div>
+    <div class="gwd-div-zdpr gwd-div-qm1a gwd-div-wl9a"><a href="/add_recipe/">Edit Recipe</a></div>
     <div class="gwd-div-rr51">Information</div>
-    <div class="gwd-div-sggs">Ready in 1 hr 35 min.
-      <div class="">Makes one dozen waffles.</div>
+    {% if preptime %}
+    <div class="gwd-div-sggs">Ready in {{preptime}} .
+        {% if amount %}
+        <div class="">Makes {{amount}}.</div>
+        {% else %}
+        <div class="">Makes ???.</div>
+        {% endif %}
     </div>
+    {% else %}
+    <div class="gwd-div-sggs">Ready in ???.
+        {% if amount %}
+        <div class="">Makes {{amount}}.</div>
+        {% else %}
+        <div class="">Makes ???.</div>
+        {% endif %}
+    </div>
+    {% endif %}
     <div class="gwd-div-cnla">Directions</div>
+
     <div class="gwd-div-ix8w">
-      <p class="p1" style="">In a small bowl, dissolve yeast in 1/4 cup warm milk. Let stand until creamy, about 10 minutes.</p>
-      <p class="p1" style=""></p>
-      <p class="p1" style="">In a large bowl, whisk together the egg yolks, 1/4 cup of the warm milk and the melted butter. Stir in the yeast mixture, sugar, salt and vanilla. Stir in the remaining 2 1/2 cups milk alternately with the flour, ending with the flour. Beat the egg whites until they form soft peaks; fold into the batter. Cover the bowl tightly with plastic wrap. Let rise in a warm place until doubled in volume, about 1 hour.</p>
-      <p class="p1" style=""></p>
-      <p class="p1" style="">Preheat the waffle iron. Brush with oil and spoon about 1/2 cup (or as recommended by manufacturer) onto center of iron. Close the lid and bake until it stops steaming and the waffle is golden brown. Serve immediately or keep warm in 200 degree oven.</p>
+        {% if dir %}
+		<div class="">{{dir}}</div>
+        {% else %}
+      <p class="p1" style="">Add directions here.</p>
       <p class="p1">
         <br>
       </p>
     </div>
+    {% endif %}
     <div class="gwd-div-nv6i">Ingredients</div>
     <div class="gwd-div-kc76">
-      <p class="p1">1 (.25 ounce) package active dry yeast &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+      <p class="p1">1 (.25 ounce) package active dry yeast </p>
       <p class="p1">4 cups warm milk (110 degrees F/45 degrees C)</p>
       <p class="p1"></p>
       <p class="p1">3 eggs</p>
@@ -187,10 +210,6 @@
       <p class="p1"></p>
       <p class="p1">4 cups all-purpose flour</p>
     </div>
-    <div class="gwd-div-zdpr gwd-div-0vu6 gwd-div-l5xo"><a href="/my_recipes/">Add to My Recipes</a></div>
-    <div class="gwd-div-zdpr gwd-div-0vu6 gwd-div-xk6z"><a href="/shopping/">Add to Shopping List</a></div>
-    <div class="gwd-div-zdpr gwd-div-qm1a gwd-div-mkkx"><a href="/">Home</a></div>
-    <div class="gwd-div-zdpr gwd-div-qm1a gwd-div-wl9a"><a href="/add_recipe/">Edit Recipe</a></div>
   </body>
 
 </html>
