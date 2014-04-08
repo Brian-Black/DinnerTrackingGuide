@@ -1,6 +1,6 @@
 import datetime
 from flask import url_for
-from Dinner import db
+from DinnerTrackingGuide import db
 
 class Recipe(db.Document):
 	created_at = db.DateTimeField(default=datetime.datetime.now, required=True)

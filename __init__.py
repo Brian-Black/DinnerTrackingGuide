@@ -3,20 +3,23 @@ from flask import render_template
 #from flask.ext.mongoengine import MongoEngine
 
 app = Flask(__name__)
-#app.config["MONGODB_SETTINGS"] = {'DB': "Recipies"}
+#app.config["MONGODB_SETTINGS"] = {'DB': "Recipes"}
 #app.config["SECRET_KEY"] = "KeepThisS3cr3t"
 
-db = MongoEngine(app)
+#db = MongoEngine(app)
 
 @app.route('/')
 def index():
 	#check for login and populate mainpage
+
 	return render_template('design_homepage.html')
 
 @app.route('/hello/')
 @app.route('/hello/<name>')
 def hello(name=None):
-	return render_template('hello.html', name=name)
+	if(db.recipe.find()):
+		return render_template('hello.html', name="yes")
+	return render_template('hello.html', name=None)
 
 @app.route('/add_recipe/')
 def addRecipe():
