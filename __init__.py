@@ -1,12 +1,17 @@
 from flask import Flask, url_for, request
 from flask import render_template
-#from flask.ext.mongoengine import MongoEngine
+from pymongo import MongoClient
+client = MongoClient()
+# from flask.ext.mongoengine import MongoEngine
+# from mongoengine import connect
 
 app = Flask(__name__)
-#app.config["MONGODB_SETTINGS"] = {'DB': "Recipes"}
-#app.config["SECRET_KEY"] = "KeepThisS3cr3t"
+# app.config["MONGODB_SETTINGS"] = {'DB': "Recipes"}
+# app.config["SECRET_KEY"] = "KeepThisS3cr3t"
 
-#db = MongoEngine(app)
+# connect('Recipes')
+
+db = client['Recipes']
 
 @app.route('/')
 def index():
@@ -17,8 +22,6 @@ def index():
 @app.route('/hello/')
 @app.route('/hello/<name>')
 def hello(name=None):
-	if(db.recipe.find()):
-		return render_template('hello.html', name="yes")
 	return render_template('hello.html', name=None)
 
 @app.route('/add_recipe/')
@@ -33,6 +36,16 @@ def viewRecipe():
 	
 	return render_template('design_recipe.html',name="Belgium Waffles",preptime="1 hr 35 min",amount="one dozen waffles",dir=directions)
 
+@app.route('/recipe/ice/')
+def makeIce():
+	collection = db.recipe
+	ice = collection.find_one({"title": "ICE"})
+	#ice = db.find()
+	print ice['title']
+	#if(ice != null):
+	return render_template('design_recipe.html',name=ice['title'],preptime="1 hr 35 min",amount="one dozen waffles",dir=ice['instructions'] )
+	#else:
+	 #	return render_template('hello.html', name=None)
 @app.route('/shopping/')
 def shopping():
 	return render_template('design_shopping_list.html')
@@ -43,4 +56,4 @@ def myRecipe():
 
 
 if __name__ == '__main__':
-	app.run()
+	app.run(debug=True)
