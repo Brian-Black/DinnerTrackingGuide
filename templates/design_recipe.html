@@ -46,7 +46,7 @@
         width: 500px;
         height: 300px;
         left: 16px;
-        top: 442px;
+        top: 600px;
       }
       .gwd-div-cnla {
         position: absolute;
@@ -57,7 +57,7 @@
         color: rgb(0, 0, 0);
         font-size: 20px;
         left: 19px;
-        top: 411px;
+        top: 550px;
       }
       .gwd-div-sggs {
         position: absolute;
@@ -172,44 +172,33 @@
         {% endif %}
     </div>
     {% endif %}
+	
+	
+	<div class="gwd-div-nv6i">Ingredients</div>
+	<div class="gwd-div-kc76">
+	{% if ingr %}
+		{% for ingredient in ingr %}
+			<p>{{ingredient}}</p>
+		{% endfor %}
+	{% else %}
+		<p>"List ingredients here"</p>
+	{% endif %}
+    </div>
+	
     <div class="gwd-div-cnla">Directions</div>
-
     <div class="gwd-div-ix8w">
-        {% if dir %}
-		<div class="">{{dir}}</div>
-        {% else %}
+	{% if dir %}
+        {% for direction in dir %}
+			<p>{{direction}}</p>
+		{% endfor %}
+	{% else %}
       <p class="p1" style="">Add directions here.</p>
       <p class="p1">
         <br>
       </p>
     </div>
     {% endif %}
-    <div class="gwd-div-nv6i">Ingredients</div>
-    <div class="gwd-div-kc76">
-      <p class="p1">1 (.25 ounce) package active dry yeast </p>
-      <p class="p1">4 cups warm milk (110 degrees F/45 degrees C)</p>
-      <p class="p1"></p>
-      <p class="p1">3 eggs</p>
-      <p class="p1"></p>
-      <p class="p1">3/4 cup butter, melted and cooled to lukewarm</p>
-      <p class="p1"></p>
-      <p class="p1">
-        <br>
-      </p>
-    </div>
-    <div class="gwd-div-iprm">
-      <div class="">
-        <br>
-      </div>
-      <div class="">1/2 cup white sugar
-        <br>
-      </div>
-      <p class="p1">1 1/2 teaspoons salt</p>
-      <p class="p1"></p>
-      <p class="p1">2 teaspoons vanilla extract</p>
-      <p class="p1"></p>
-      <p class="p1">4 cups all-purpose flour</p>
-    </div>
+
   </body>
 
 </html>
