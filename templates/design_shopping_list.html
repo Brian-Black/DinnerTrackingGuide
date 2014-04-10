@@ -75,22 +75,13 @@
   <body>
     <div class="gwd-div-2zh7">Shopping List</div>
     <div class="gwd-div-1rgj">
-      <br>
-      <div class="">12 eggs</div>
-      <div>
-        <br>
-      </div>
-      <div>2 gallons milk</div>
-      <div class="">
-        <br>
-      </div>
-      <div>Cream Cheese</div>
-      <div class="">
-        <br>
-      </div>
-      <div>
-        <br>
-      </div>
+	{% if items %}
+		{% for item in items %}
+			<p>{{item}}</p>
+		{% endfor %}
+	{% else %}
+		<p>"No items in list."</p>
+	{% endif %}
     </div>
     <div class="gwd-div-o322"></div>
     <div class="gwd-div-e33t gwd-div-gj7b">Edit</div>
