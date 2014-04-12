@@ -1,6 +1,6 @@
 from flask import Flask, url_for, request
 from flask import render_template
-#client = MongoClient()
+
 from flask.ext.mongoengine import MongoEngine
 from mongoengine import *
 
@@ -67,9 +67,17 @@ def makeIce():
 	#else:
 	 #	return render_template('hello.html', name=None)
 @app.route('/shopping/')
-
 def shopping():
-	return render_template('design_shopping_list.html')
+	itmesForList = [
+				   "12 eggs",
+				   "2 gallons milk",
+				   "Cream Cheese",
+				   "3/4 C butter",
+				   "2 t lemon pepper",
+				   "3 T vanilla extract",
+				   "4 C all-purpose flour"
+			 ]
+	return render_template('design_shopping_list.html', items=itmesForList)
 
 @app.route('/my_recipes/')
 def myRecipe():
