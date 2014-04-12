@@ -2,7 +2,6 @@ from flask import Flask, url_for, request
 from flask import render_template
 
 from flask.ext.mongoengine import MongoEngine
-from mongoengine import *
 
 app = Flask(__name__)
 app.config["MONGODB_SETTINGS"] = {'DB': "Recipes"}
