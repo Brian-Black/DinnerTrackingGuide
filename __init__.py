@@ -14,7 +14,7 @@ db = MongoEngine(app)
 
 def register_blueprints(app):
 	from DinnerTrackingGuide.views import recipes
-	app.register_blueprints(recipes)
+	app.register_blueprint(recipes)
 
 register_blueprints(app)
 
@@ -63,9 +63,10 @@ def makeIce():
 	#ice = db.find()
 	print ice['title']
 	#if(ice != null):
-	return render_template('design_recipe.html',name=ice['title'],preptime="1 hr 35 min",amount="one dozen waffles",dir=ice['instructions'] )
+	return render_template('design_recipe_new.html',name=ice['title'],preptime="1 hr 35 min",amount="one dozen waffles",dir=ice['instructions'] )
 	#else:
 	 #	return render_template('hello.html', name=None)
+
 @app.route('/shopping/')
 def shopping():
 	itmesForList = [

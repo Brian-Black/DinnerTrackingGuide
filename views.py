@@ -8,13 +8,13 @@ class ListView(MethodView):
 
 	def get(self):
 		recipes = Recipe.objects.all()
-		return render_template('design_myRecipes.html', recipe=recipes)
+		return render_template('testLanding.html', recipes=recipes)
 
 class DetailView(MethodView):
 
 	def get(self, slug):
 		recipe = Recipe.objects.get_or_404(slug=slug)
-		return render_template('design_recipes.html', recipe=recipe)
+		return render_template('testDetail.html', recipe=recipe)
 
-recipes.add_url_rule('/', view_func=ListView.as_view('myRecipes'))
-recipes.add_url_rule('/<slug>/', view_func=DetailView.as_view(''))
+recipes.add_url_rule('/', view_func=ListView.as_view('list'))
+recipes.add_url_rule('/<slug>/', view_func=DetailView.as_view('detail'))

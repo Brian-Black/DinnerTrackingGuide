@@ -1,0 +1,15 @@
+{% extends "hello.html" %}
+
+{% block page_header %}
+<div class="page-header">
+	<h1>{{ recipe.title }}</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<p>{{ recipe.instructions }}<p>
+<p>{{ recipe.created_at.strftime('%H:%M %Y-%m-%d') }}</p>
+<hr>
+<h2>Comments</h2>
+
+{% endblock %}

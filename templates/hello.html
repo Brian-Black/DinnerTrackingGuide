@@ -1,8 +1,37 @@
 <!doctype html>
-<title>Hello from Flask Template</title>
-{% if name %}
+<html lang="eng">
+<head>
+    <meta charset="utf-8">
+    <title>My Tumblelog</title>
+    <link href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.css" rel="stylesheet">
+    <style>.content {padding-top: 80px;}</style>
+</head>
+
+<body>
+	{%- block topbar -%}
+	<div class ="topbar">
+		<div class="fill">
+			<div class="container">
+				<h2>
+					<a href="/" class="brand">My Recipe</a> <small>Starring flask, mogodb and others</small>
+				</h2>
+			</div>
+		</div>
+	</div>
+	{%- endblock -%}
+
+	<div class="container">
+		<div class="content">
+			{% block page_header %}{% endblock %}
+			{% block content %}{% endblock %}
+		</div>
+	</div>
+	{% block js_footer %}{% endblock %}
+</body>
+</html>
+<!-- {% if name %}
 <h1>Hello {{ name }}!</h1>
 {% else %}
 <h1>Hello there</h1>
 {% endif %}
-
+ -->
