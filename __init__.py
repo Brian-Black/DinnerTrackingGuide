@@ -1,17 +1,22 @@
 from flask import Flask, url_for, request
 from flask import render_template
-from pymongo import MongoClient
-client = MongoClient()
-# from flask.ext.mongoengine import MongoEngine
-# from mongoengine import connect
+#client = MongoClient()
+from flask.ext.mongoengine import MongoEngine
+from mongoengine import *
 
 app = Flask(__name__)
-# app.config["MONGODB_SETTINGS"] = {'DB': "Recipes"}
-# app.config["SECRET_KEY"] = "KeepThisS3cr3t"
+app.config["MONGODB_SETTINGS"] = {'DB': "Recipes"}
+app.config["SECRET_KEY"] = "KeepThisS3cr3t"
 
 # connect('Recipes')
 
-db = client['Recipes']
+db = MongoEngine(app)
+
+def register_blueprints(app):
+	from DinnerTrackingGuide.views import recipes
+	app.register_blueprints(recipes)
+
+register_blueprints(app)
 
 @app.route('/')
 def index():
@@ -52,8 +57,9 @@ def viewRecipe():
 
 @app.route('/recipe/ice/')
 def makeIce():
-	collection = db.recipe
-	ice = collection.find_one({"title": "ICE"})
+	from models import Recipe
+	collection = db.recipe.Objects
+	ice = db.Recipes.find_one({"title": "ICE"})
 	#ice = db.find()
 	print ice['title']
 	#if(ice != null):
