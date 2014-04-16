@@ -9,9 +9,6 @@
     <div class="input">
       {% if field.name == "body" %}
         {{ field(rows=10, cols=40) }}
-      {% if field.name == "ingredients" %}
-      	{{ fiedl(rows=10, cols=100) }}
-      {% endif %}
       {% else %}
         {{ field() }}
       {% endif %}
@@ -30,4 +27,3 @@
 {% endfor %}
 </fieldset>
 {% endmacro %}
-

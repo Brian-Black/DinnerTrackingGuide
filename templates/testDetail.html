@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% import "_forms.html" as forms %}
+
 {% block page_header %}
 <div class="page-header">
 	<h1>{{ recipe.title }}</h1>
@@ -14,7 +15,7 @@
 {% if recipe.comments %}
 	{% for comment in recipe.comments %}
 		<p>{{ comment.body }}</p>
-		<p><strong>{{ comment.author }}</strong><small> on {{comment.created_at.strftime('%H:%M %Y-%m-%d')}}</small></p>
+		<p><strong>{{ comment.author }}</strong> <small> on {{comment.created_at.strftime('%H:%M %Y-%m-%d')}}</small></p>
 		{{ comment.text }}
 	{% endfor %}
 {% endif %}
@@ -23,7 +24,8 @@
 <form action="." method="post">
 	{{ forms.render(form) }}
 	<div class="actions">
-		<input type="submit" class="btn primary" value="comment">
+		<input type="submit" class="btn primary" value="Comment">
 	</div>
 </form>
+<hr>
 {% endblock %}

@@ -13,8 +13,53 @@ class HomeView(MethodView):
 
 class RecipeView(MethodView):
 
+	form = model_form(Comment, exclude=('created_at'))
+
 	def get_context(self, slug=None):
-		form_cls = model_form(Recipe, exclude=('created_at', 'comments'))
+
+		# if slug:
+		recipe = Recipe.objects.get_or_404(slug=slug)
+		form = self.form(request.form)
+		# if request.method == 'POST':
+			# 	form = form_cls(request.form, initial=recipe._data)
+			# else:
+			# 	form = form_cls(obj=recipe)
+
+		# else:
+		# 	recipe = Recipe()
+		# 	form = form_cls(request.form)
+
+		context = {
+			"recipe": recipe,
+			"form": form
+			# "create": slug is None
+		}
+		return context
+
+	def get(self, slug):
+		context = self.get_context(slug)
+		return render_template('testDetail.html', **context)
+
+	def post(self, slug):
+		context = self.get_context(slug)
+		form = context.get('form')
+
+		if form.validate():
+			comment = Comment()
+			form.populate_obj(comment)
+			
+			recipe = context.get('recipe')
+			recipe.comments.append(comment)
+			recipe.save()
+
+			return redirect(url_for('recipes.detail', slug=slug))
+		return render_template('testDetail.html', **context)
+
+class addRecipeView(MethodView):
+
+	def get_context(self, slug=None):
+	
+		form_cls = model_form(Recipe, exclude=('created_at', 'comments', 'totalRatings', 'NumberOfRatings'))
 
 		if slug:
 			recipe = Recipe.objects.get_or_404(slug=slug)
@@ -22,7 +67,6 @@ class RecipeView(MethodView):
 				form = form_cls(request.form, initial=recipe._data)
 			else:
 				form = form_cls(obj=recipe)
-
 		else:
 			recipe = Recipe()
 			form = form_cls(request.form)
@@ -43,12 +87,16 @@ class RecipeView(MethodView):
 		form = context.get('form')
 
 		if form.validate():
+			comment = Comment()
+			form.populate_obj(comment)
+			
 			recipe = context.get('recipe')
-			form.populate_obj(recipe)
+			recipe.comments.append(comment)
 			recipe.save()
 
-			return redirect(url_for('home'))
+			return redirect(url_for('recipes.detail', slug=slug))
 		return render_template('testDetail.html', **context)
+
 
 recipes.add_url_rule('/', view_func=HomeView.as_view('home'))
 recipes.add_url_rule('/<slug>/', view_func=RecipeView.as_view('detail'))
