@@ -17,22 +17,12 @@ class RecipeView(MethodView):
 
 	def get_context(self, slug=None):
 
-		# if slug:
 		recipe = Recipe.objects.get_or_404(slug=slug)
 		form = self.form(request.form)
-		# if request.method == 'POST':
-			# 	form = form_cls(request.form, initial=recipe._data)
-			# else:
-			# 	form = form_cls(obj=recipe)
-
-		# else:
-		# 	recipe = Recipe()
-		# 	form = form_cls(request.form)
-
+		
 		context = {
 			"recipe": recipe,
 			"form": form
-			# "create": slug is None
 		}
 		return context
 
@@ -55,7 +45,7 @@ class RecipeView(MethodView):
 			return redirect(url_for('recipes.detail', slug=slug))
 		return render_template('testDetail.html', **context)
 
-class addRecipeView(MethodView):
+class AddRecipeView(MethodView):
 
 	def get_context(self, slug=None):
 	
@@ -80,25 +70,22 @@ class addRecipeView(MethodView):
 
 	def get(self, slug):
 		context = self.get_context(slug)
-		return render_template('testDetail.html', **context)
+		return render_template('addRecipe.html', **context)
 
 	def post(self, slug):
 		context = self.get_context(slug)
 		form = context.get('form')
 
 		if form.validate():
-			comment = Comment()
-			form.populate_obj(comment)
-			
 			recipe = context.get('recipe')
-			recipe.comments.append(comment)
+			form.populate_obj(recipe)
 			recipe.save()
 
-			return redirect(url_for('recipes.detail', slug=slug))
+			return redirect(url_for('recipes.home', slug=slug))
 		return render_template('testDetail.html', **context)
 
 
 recipes.add_url_rule('/', view_func=HomeView.as_view('home'))
 recipes.add_url_rule('/<slug>/', view_func=RecipeView.as_view('detail'))
-recipes.add_url_rule('/create/', defaults={'slug': None}, view_func=RecipeView.as_view('create'))
+recipes.add_url_rule('/create/', defaults={'slug': None}, view_func=AddRecipeView.as_view('create'))
 recipes.add_url_rule('/edit/<slug>/', view_func=RecipeView.as_view('edit'))
