@@ -31,6 +31,7 @@
 			z-index:0
 		}
 		.gwd-span-links {
+			position: relative;
 			font-family:'Times New Roman';
 			font-size: 30px;
 			width:100
@@ -39,22 +40,16 @@
 </head>
 {% block top_banner_contents %}
 	<span class="gwd-span-links">
-		<a href="/add_recipe/">Add Recipe</a>
-	</span>
-	&nbsp;
-	&nbsp;
-	<span class="gwd-span-links">
-		<a href="/my_recipes/">My Recipes</a>
-	</span>
-	&nbsp;
-	&nbsp;
-	<span class="gwd-span-links">
-		<a href="/shopping/">Shopping List</a>
-	</span>
-	&nbsp;
-	&nbsp;
-	<span class="gwd-span-links">
-		Search
+		<h4><a href="{{ url_for('recipes.create') }}" class="btn primary">Add Recipe</a>
+		&nbsp;
+		&nbsp;
+		<a href="/my_recipes/" class="btn primary">My Recipes</a>
+		&nbsp;
+		&nbsp;
+		<a href="/shopping/" class="btn primary">Shopping List</a>
+		&nbsp;
+		&nbsp;
+		Search</h4>
 	</span>
 {% endblock %}
 
