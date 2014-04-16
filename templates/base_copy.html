@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	
+	<head data-gwd-animation-mode="quickMode">
+		<title>Dinner Planner</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="generator" content="Google Web Designer 1.0.4.0305">
+		<style type="text/css">
+			html, body {
+				width: 100%;
+				height: 100%;
+				margin: 0px;
+			}
+			body {
+				background-color: transparent;
+				-webkit-transform: perspective(1400px) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+				-webkit-transform-style: preserve-3d;
+			}
+			.gwd-div-side-banner {
+				position: absolute;
+				width: 212px;
+				font-family:'Times New Roman';
+				text-align: left;
+				background-image: none;
+				background-color: rgb(230, 52, 0);
+				height: 600px;
+				left: 0px;
+				top: 0px;
+				z-index:-1;
+			}
+			.gwd-div-top-banner {
+				position: absolute;
+				width: 1000px;
+				font-family:'Times New Roman';
+				text-align: left;
+				background-image: none;
+				background-color: rgb(162, 255, 221);
+				height: 100px;
+				left: 220px;
+				top: 0px;
+				z-index:-1;
+			}
+			.gwd-div-page {
+				position: absolute;
+				width: 805px;
+				left: 244px;
+				font-family:'Times New Roman';
+				text-align: left;
+				color: rgb(0, 0, 0);
+				top: 120px;
+				height: 452px;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<div class="gwd-div-ro1m">
+			<div class=""><u style=""><br></u>
+				
+			</div>
+		</div>
+		<div class="gwd-div-side-banner" id="side_banner">
+			<br>
+		</div>
+		<div class="gwd-div-ro1m">
+			<div class=""><u style=""><br></u>
+				
+			</div>
+		</div>
+		<div class="gwd-div-side-banner" id="side_banner">
+			<br>
+		</div>
+		<div class="gwd-div-top-banner" id="top_banner">
+			<br>
+			{% block top_banner_contents %}{% endblock %}
+		</div>
+		
+		<div class="gwd-div-page">
+			{% block page_contents %}{% endblock %}
+		</div>
+		
+	</body>
+</html>

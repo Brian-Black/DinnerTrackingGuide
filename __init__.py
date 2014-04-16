@@ -18,15 +18,17 @@ def register_blueprints(app):
 register_blueprints(app)
 
 @app.route('/')
+@app.route('/index')
 def index():
 	#check for login and populate mainpage
-
-	return render_template('design_homepage.html')
+	#return render_template('design_homepage.html')
+	return render_template('design_homepage_copy.html')
 
 @app.route('/hello/')
 @app.route('/hello/<name>')
 def hello(name=None):
 	return render_template('base.html', name=None)
+#return render_template('design_homepage.html')
 
 @app.route('/add_recipe/')
 def addRecipe():
