@@ -80,7 +80,8 @@ def shopping():
 				   "3 T vanilla extract",
 				   "4 C all-purpose flour"
 			 ]
-	return render_template('design_shopping_list.html', items=itmesForList)
+	#return render_template('design_shopping_list.html', items=itmesForList)
+	return render_template('shopping_list.html', items=itmesForList)
 
 @app.route('/my_recipes/')
 def myRecipe():
