@@ -22,7 +22,11 @@ register_blueprints(app)
 def index():
 	#check for login and populate mainpage
 	#return render_template('design_homepage.html')
-	return render_template('design_homepage_copy.html')
+	all_the_recipes = [
+						"Belgium Waffles",
+						"Blueberry Muffins"
+					]	
+	return render_template('design_homepage_copy.html', allrecipes=all_the_recipes)
 
 @app.route('/hello/')
 @app.route('/hello/<name>')
@@ -46,14 +50,13 @@ def viewRecipe():
 				   "1 1/2 teaspoons salt",
 				   "2 teaspoons vanilla extract",
 				   "4 cups all-purpose flour"
-			 ]
-	
+				   ]
+		
 	directions = [
-					"In a small bowl, dissolve yeast in 1/4 cup warm milk. Let stand until creamy, about 10 minutes.",
-					" In a large bowl, whisk together the egg yolks, 1/4 cup of the warm milk and the melted butter. Stir in the yeast mixture, sugar, salt and vanilla. Stir in the remaining 2 1/2 cups milk alternately with the flour, ending with the flour. Beat the egg whites until they form soft peaks; fold into the batter. Cover the bowl tightly with plastic wrap. Let rise in a warm place until doubled in volume, about 1 hour.",
-						"Preheat the waffle iron. Brush with oil and spoon about 1/2 cup (or as recommended by manufacturer) onto center of iron. Close the lid and bake until it stops steaming and the waffle is golden brown. Serve immediately or keep warm in 200 degree oven."
-	]
-	
+					  "In a small bowl, dissolve yeast in 1/4 cup warm milk. Let stand until creamy, about 10 minutes.",
+					  " In a large bowl, whisk together the egg yolks, 1/4 cup of the warm milk and the melted butter. Stir in the yeast mixture, sugar, salt and vanilla. Stir in the remaining 2 1/2 cups milk alternately with the flour, ending with the flour. Beat the egg whites until they form soft peaks; fold into the batter. Cover the bowl tightly with plastic wrap. Let rise in a warm place until doubled in volume, about 1 hour.",
+					  "Preheat the waffle iron. Brush with oil and spoon about 1/2 cup (or as recommended by manufacturer) onto center of iron. Close the lid and bake until it stops steaming and the waffle is golden brown. Serve immediately or keep warm in 200 degree oven."
+					  ]
 #	return render_template('design_recipe.html',name="Belgium Waffles",preptime="1 hr 35 min",amount="one dozen waffles",ingr=ingredients,dir=directions)
 	return render_template('recipe.html',name="Belgium Waffles",preptime="1 hr 35 min",amount="one dozen waffles",ingr=ingredients,dir=directions)
 
@@ -86,7 +89,11 @@ def shopping():
 @app.route('/my_recipes/')
 def myRecipe():
 	#return render_template('design_myRecipes.html')
-	return render_template('myRecipes.html')
+	all_the_recipes = [
+					   "Belgium Waffles"
+					   ]	
+	return render_template('myRecipes.html', myrecipes=all_the_recipes)
+#return render_template('myRecipes.html')
 
 @app.context_processor
 def utility_processor():

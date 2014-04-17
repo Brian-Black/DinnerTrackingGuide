@@ -57,8 +57,12 @@
 {% endblock %}
 
 {% block page_contents %}
-	<p class="p1"><span class="gwd-span-dk2l"><a href="/recipe/">Belgian Waffles</a></span>
-	
-	</p>
+	{% if allrecipes %}
+		{% for recipe in allrecipes %}
+			<p><a href="/recipe/"> {{ recipe }} </a></p>
+		{% endfor %}
+	{% else %}
+		<p>There aren't any recipes yet.</p>
+	{% endif %}
 {% endblock %}
 

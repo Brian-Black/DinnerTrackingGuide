@@ -57,9 +57,11 @@
 {% endblock %}
 
 {% block page_contents %}
-<div class="gwd-div-hma4">
-	<p class="p1"><u><a href="/recipe/">Belgian Waffles</a></u>
-	
-	</p>
-</div>
+	{% if myrecipes %}
+		{% for recipe in myrecipes %}
+			<p><a href="/recipe/"> {{ recipe }} </a></p>
+		{% endfor %}
+	{% else %}
+		<p>There aren't any recipes yet.</p>
+	{% endif %}
 {% endblock %}
