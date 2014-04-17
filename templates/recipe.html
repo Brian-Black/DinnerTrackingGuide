@@ -40,7 +40,7 @@
 		<a href="/my_recipes/" class="btn primary">Add to My Recipes</a>
 		&nbsp;
 		&nbsp;
-		<a href="/shopping/" class="btn primary">Add to Shopping List</a>
+		<a href="{{ addToShoppingList(ingr) }}" class="btn primary">Add to Shopping List</a>
 		&nbsp;
 		&nbsp;
 		<a href="{{ url_for('recipes.create') }}" class="btn primary">Edit Recipe</a>
