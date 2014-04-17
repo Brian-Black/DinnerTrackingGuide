@@ -1,0 +1,95 @@
+{% extends "base_copy.html" %}
+  
+  <head data-gwd-animation-mode="quickMode">
+    <title>Recipe</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="generator" content="Google Web Designer 1.0.4.0305">
+    <style type="text/css">
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+      }
+      body {
+        background-color: transparent;
+        -webkit-transform: perspective(1400px) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+        -webkit-transform-style: preserve-3d;
+      }
+	.gwd-span-links {
+		position: relative;
+		font-family:'Times New Roman';
+		font-size: 30px;
+		width:100
+	}
+    </style>
+  </head>
+
+{% block title %}
+    {% if name %}
+		{{name}}
+    {% else %}
+		Unnamed
+    {% endif %}
+{% endblock %}
+
+{% block top_banner_contents %}
+<span class="gwd-span-links">
+	<h4><a href="/index" class="btn primary">Home</a>
+		&nbsp;
+		&nbsp;
+		<a href="/my_recipes/" class="btn primary">Add to My Recipes</a>
+		&nbsp;
+		&nbsp;
+		<a href="/shopping/" class="btn primary">Add to Shopping List</a>
+		&nbsp;
+		&nbsp;
+		<a href="{{ url_for('recipes.create') }}" class="btn primary">Edit Recipe</a>
+		&nbsp;
+		&nbsp;
+		Search</h4>
+</span>
+{% endblock %}
+
+{% block page_contents %}
+    <h2>Information</h2>
+    {% if preptime %}
+	<p>
+		Ready in {{preptime}} .
+		<br>
+        {% if amount %}
+			Makes {{amount}}.
+        {% else %}
+			Makes ???.
+        {% endif %}
+	</p>
+    
+    {% else %}
+    <p>Ready in ???.
+        {% if amount %}
+			Makes {{amount}}.
+        {% else %}
+			Makes ???.
+        {% endif %}
+    </p>
+    {% endif %}
+	
+	
+	<h2>Ingredients</h2>
+	{% if ingr %}
+		{% for ingredient in ingr %}
+			<p>{{ingredient}}</p>
+		{% endfor %}
+	{% else %}
+		<p>"There aren't any ingredients here."</p>
+	{% endif %}
+	
+    <h2>Directions</h2>
+	{% if dir %}
+        {% for direction in dir %}
+			<p>{{direction}}</p>
+		{% endfor %}
+	{% else %}
+      <p>Just wing it!!! There aren't any directions here!</p>
+      </p>
+    {% endif %}
+{% endblock %}

@@ -54,7 +54,8 @@ def viewRecipe():
 						"Preheat the waffle iron. Brush with oil and spoon about 1/2 cup (or as recommended by manufacturer) onto center of iron. Close the lid and bake until it stops steaming and the waffle is golden brown. Serve immediately or keep warm in 200 degree oven."
 	]
 	
-	return render_template('design_recipe.html',name="Belgium Waffles",preptime="1 hr 35 min",amount="one dozen waffles",ingr=ingredients,dir=directions)
+#	return render_template('design_recipe.html',name="Belgium Waffles",preptime="1 hr 35 min",amount="one dozen waffles",ingr=ingredients,dir=directions)
+	return render_template('recipe.html',name="Belgium Waffles",preptime="1 hr 35 min",amount="one dozen waffles",ingr=ingredients,dir=directions)
 
 @app.route('/recipe/ice/')
 def makeIce():
@@ -83,8 +84,8 @@ def shopping():
 
 @app.route('/my_recipes/')
 def myRecipe():
-	return render_template('design_myRecipes.html')
-
+	#return render_template('design_myRecipes.html')
+	return render_template('myRecipes.html')
 
 if __name__ == '__main__':
 	app.run(debug=True)

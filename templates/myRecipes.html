@@ -1,0 +1,65 @@
+{% extends "base_copy.html" %}
+
+<head data-gwd-animation-mode="quickMode">
+	<title>My Recipes</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="generator" content="Google Web Designer 1.0.4.0305">
+			<style type="text/css">
+				html, body {
+					width: 100%;
+					height: 100%;
+					margin: 0px;
+				}
+			body {
+				background-color: transparent;
+				-webkit-transform: perspective(1400px) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+				-webkit-transform-style: preserve-3d;
+			}
+			.gwd-div-ro1m {
+				position: absolute;
+				font-family:'Times New Roman';
+				text-align: left;
+				color: rgb(0, 0, 0);
+				background-image: none;
+				background-color: rgb(255, 255, 255);
+				height: 23px;
+				-webkit-transform: translate3d(-5.99px, -13.65px, 2.56px);
+				-webkit-transform-style: preserve-3d;
+				left: 780px;
+				top: 63px;
+				width: 225px;
+				z-index:0
+			}
+			.gwd-span-links {
+				position: relative;
+				font-family:'Times New Roman';
+				font-size: 30px;
+				width:100
+			}
+			</style>
+</head>
+
+{% block title %}My Recipes{% endblock %}
+
+{% block top_banner_contents %}
+<span class="gwd-span-links">
+	<h4><a href="/index" class="btn primary">Home</a>
+		&nbsp;
+		&nbsp;
+		<a href="{{ url_for('recipes.create') }}" class="btn primary">Add Recipe</a>
+		&nbsp;
+		&nbsp;
+		<a href="/shopping/" class="btn primary">Shopping List</a>
+		&nbsp;
+		&nbsp;
+		Search</h4>
+</span>
+{% endblock %}
+
+{% block page_contents %}
+<div class="gwd-div-hma4">
+	<p class="p1"><u><a href="/recipe/">Belgian Waffles</a></u>
+	
+	</p>
+</div>
+{% endblock %}
