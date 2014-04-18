@@ -54,7 +54,8 @@ def viewRecipe():
 						"Preheat the waffle iron. Brush with oil and spoon about 1/2 cup (or as recommended by manufacturer) onto center of iron. Close the lid and bake until it stops steaming and the waffle is golden brown. Serve immediately or keep warm in 200 degree oven."
 	]
 	
-	return render_template('design_recipe.html',name="Belgium Waffles",preptime="1 hr 35 min",amount="one dozen waffles",ingr=ingredients,dir=directions)
+#	return render_template('design_recipe.html',name="Belgium Waffles",preptime="1 hr 35 min",amount="one dozen waffles",ingr=ingredients,dir=directions)
+	return render_template('recipe.html',name="Belgium Waffles",preptime="1 hr 35 min",amount="one dozen waffles",ingr=ingredients,dir=directions)
 
 @app.route('/recipe/ice/')
 def makeIce():
@@ -68,29 +69,32 @@ def makeIce():
 	#else:
 	 #	return render_template('hello.html', name=None)
 
+shoppingList = [
+					"12 eggs",
+					"2 gallons milk",
+					"Cream Cheese",
+					"3/4 C butter",
+					"2 t lemon pepper",
+					"3 T vanilla extract",
+					"4 C all-purpose flour"
+				]
 @app.route('/shopping/')
 def shopping():
-	itmesForList = [
-				   "12 eggs",
-				   "2 gallons milk",
-				   "Cream Cheese",
-				   "3/4 C butter",
-				   "2 t lemon pepper",
-				   "3 T vanilla extract",
-				   "4 C all-purpose flour"
-			 ]
-	return render_template('design_shopping_list.html', items=itmesForList)
+	#return render_template('design_shopping_list.html', items=itmesForList)
+	return render_template('shopping_list.html', items=shoppingList)
 
 @app.route('/my_recipes/')
 def myRecipe():
-	return render_template('design_myRecipes.html')
+	#return render_template('design_myRecipes.html')
+	return render_template('myRecipes.html')
 
+@app.context_processor
+def utility_processor():
+	def addToShoppingList(ingredients):
+		shoppingList.extend(ingredients)
+		return '/shopping/'
+	return dict(addToShoppingList=addToShoppingList)
 
 if __name__ == '__main__':
 	app.run(debug=True)
 
-'''
-<div class="">{{dir}}</div>
-
-
-'''
