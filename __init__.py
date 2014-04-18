@@ -8,14 +8,10 @@ from config import app
 from config import db
 from authentication import login_manager
 
-# connect('Recipes')
-
-#define a few variables
-name = 'anon'
 
 def register_blueprints(app):
-	from DinnerTrackingGuide.views import recipes
-	app.register_blueprint(recipes)
+	from DinnerTrackingGuide.views import users
+	app.register_blueprint(users)
 
 register_blueprints(app)
 
