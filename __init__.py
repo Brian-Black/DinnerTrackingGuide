@@ -1,15 +1,17 @@
-from flask import Flask, url_for, request
-from flask import render_template
+from flask import Flask, url_for, request, render_template, Blueprint
+
+from flask.ext.login import login_required, current_user
 
 from flask.ext.mongoengine import MongoEngine
 
-app = Flask(__name__)
-app.config["MONGODB_SETTINGS"] = {'DB': "Recipes"}
-app.config["SECRET_KEY"] = "KeepThisS3cr3t"
+from config import app
+from config import db
+from authentication import login_manager
 
 # connect('Recipes')
 
-db = MongoEngine(app)
+#define a few variables
+name = 'anon'
 
 def register_blueprints(app):
 	from DinnerTrackingGuide.views import recipes
@@ -20,7 +22,21 @@ register_blueprints(app)
 @app.route('/')
 @app.route('/index')
 def index():
-	#check for login and populate mainpage
+
+	if not current_user.is_authenticated():
+		print "current user is not authenticated"
+	else:
+		print "current user IS authenticated"
+
+	login = False
+	name = None
+	if current_user.is_authenticated():
+		login = True 
+		if current_user.name:
+			name = current_user.name
+		else:
+			name = current_user.username
+
 	#return render_template('design_homepage.html')
 	all_the_recipes = [
 						"Belgium Waffles",
@@ -87,7 +103,12 @@ def shopping():
 	return render_template('shopping_list.html', items=shoppingList)
 
 @app.route('/my_recipes/')
+#@login_required
 def myRecipe():
+	if not current_user.is_authenticated():
+		print "current user is not authenticated"
+	else:
+		print "current user IS authenticated"
 	#return render_template('design_myRecipes.html')
 	all_the_recipes = [
 					   "Belgium Waffles"
