@@ -2,7 +2,7 @@ import datetime
 from flask import url_for
 from DinnerTrackingGuide import db
 
-class Recipe(db.EmbeddedDocument):
+class Recipe(db.Document):
 	created_at = db.DateTimeField(default=datetime.datetime.now, required=True)
 	title = db.StringField(max_length=255, required=True)
 	slug = db.StringField(max_length=255, required=True)
@@ -32,11 +32,9 @@ class Comment(db.EmbeddedDocument):
 
 class Users(db.Document):
 	created_at = db.DateTimeField(default=datetime.datetime.now, required=True)
-	title = db.StringField(max_length=255, required=True)
-	slug = db.StringField(max_length=255, required=True)
-	author = db.StringField(max_length=255, required=True)
 	username = db.StringField(required=True)
-	recipes = db.ListField(db.EmbeddedDocumentField('Recipe'))
+	email = db.StringField(required=True)
+	slug = db.StringField(max_length=255, required=True)
 	
 	def get_absolute_url(self):
 		return url_for('my_recipes', kwargs={"slug": self.slug})

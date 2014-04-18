@@ -15,12 +15,17 @@
 				<h2>
 					<a href="/" class="brand">Dinner Tracking Guide</a> <small>Starring flask, mogodb and others</small>
 				</h2>
+				<ul class="secondary-nav">
+					<li class = "menu">
+						<a href="{{ url_for('users.create') }}" class="btn primary">Create new Recipe</a>
+					</li>
+				</ul>
+				<ul class="secondary-nav">
+					<li class = "menu">
+						<a href="{{ url_for('users.login') }}" class="btn primary">View My Recipes</a>
+					</li>
+				</ul>
 			</div>
-			<ul class="secondary-nav">
-				<li class = "add">
-					<a href="{{ url_for('recipes.create') }}" class="btn primary">Create new Recipe</a>
-				</li>
-			</ul>
 		</div>
 	</div>
 	{%- endblock -%}
@@ -29,6 +34,7 @@
 		<div class="content">
 			{% block page_header %}{% endblock %}
 			{% block content %}{% endblock %}
+			{% block sidebar %}{% endblock %}
 		</div>
 	</div>
 	{% block js_footer %}

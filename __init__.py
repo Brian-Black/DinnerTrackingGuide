@@ -1,19 +1,19 @@
 from flask import Flask, url_for, request
 from flask import render_template
-
+from flask.ext.login import LoginManager
 from flask.ext.mongoengine import MongoEngine
 
 app = Flask(__name__)
 app.config["MONGODB_SETTINGS"] = {'DB': "Recipes"}
 app.config["SECRET_KEY"] = "KeepThisS3cr3t"
 
-# connect('Recipes')
-
 db = MongoEngine(app)
+loginManager = LoginManager()
+loginManager.init_app(app)
 
 def register_blueprints(app):
-	from DinnerTrackingGuide.views import recipes
-	app.register_blueprint(recipes)
+	from DinnerTrackingGuide.views import users
+	app.register_blueprint(users)
 
 register_blueprints(app)
 
