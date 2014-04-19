@@ -7,6 +7,7 @@
 			<th>Created</th>
 			<th>Actions</th>
 		</thead>
+		<tbody>
 	{% for recipe in recipes %}
 		<tr>
 			<th><a href="{{ url_for("users.detail", slug=recipe.slug) }}">{{ recipe.slug }}</th>
@@ -15,4 +16,6 @@
 		</tr>
 		<h2><a href="{{ url_for('users.detail', slug=recipe.slug) }}">{{ recipe.title }}</a></h2>
 	{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}

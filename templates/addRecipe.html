@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% import "_forms.html" as forms %}
+{% import "_forms_ingredients.html" as forms2 %}
 
 {% block content %}
 	<h2>
@@ -12,7 +13,7 @@
 
 	<form action="?{{ request.query_string }}" method="post">
 		{{ forms.render(form) }}
-		{{ forms.render(form2) }}
+		{{ forms2.render(form2) }}
 		<div class="actions">
 			<input type="submit" class="btn primary" value="save">
 			<a href="{{ url_for("users.home") }}" class="btn secondary">Cancel</a>

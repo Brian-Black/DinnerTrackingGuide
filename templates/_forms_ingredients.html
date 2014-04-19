@@ -1,0 +1,41 @@
+{% macro render(form) -%}
+<fieldset>
+  <table>
+      <thead>
+        <th>Ingredient</th>
+        <th>Ammount</th>
+        <th>Amount Size</th>
+      </thead>
+    <tbody>
+{% for field in form %}
+  {% if field.type in ['CSRFTokenField', 'HiddenField'] %}
+    {{ field() }}
+  {% else %}
+    <div class="clearfix {% if field.errors %}error{% endif %}">
+      <div class="input">
+        <tr>
+          {% if field.name == item%}
+            <th>{{ field(rows=1, cols=20) }}</th>
+          {% endif %}
+          {% if field.name == ammount %}
+            <td>{{ field(rows=1, cols=2) }}</td>
+          {% endif %}
+          <td>{{ field(rows=1, cols=10) }}</td>
+        </tr>
+      </tbody>
+    </table>     
+  {% endif %}
+  {% if field.errors or field.help_text %}
+    <span class="help-inline">
+    {% if field.errors %}
+      {{ field.errors|join(' ') }}
+    {% else %}
+      {{ field.help_text }}
+    {% endif %}
+    </span>
+  {% endif %}
+    </div>
+  </div>
+{% endfor %}
+</fieldset>
+{% endmacro %}

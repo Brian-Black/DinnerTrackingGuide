@@ -3,7 +3,7 @@ from flask import url_for
 from DinnerTrackingGuide import db
 
 
-class RecipeInDatabase(db.EmbeddedDocument):
+class RecipeInDatabase(db.Document):
 	created_at = db.DateTimeField(default=datetime.datetime.now, required=True)
 	title = db.StringField(max_length=255, required=True)
 	slug = db.StringField(max_length=255, required=True)
