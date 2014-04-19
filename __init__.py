@@ -17,12 +17,6 @@ register_blueprints(app)
 @app.route('/')
 @app.route('/index')
 def index():
-
-	if not current_user.is_authenticated():
-		print "current user is not authenticated"
-	else:
-		print "current user IS authenticated"
-
 	login = False
 	name = None
 	if current_user.is_authenticated():
