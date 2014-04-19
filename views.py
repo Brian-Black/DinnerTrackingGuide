@@ -73,29 +73,29 @@ class AddRecipeView(MethodView):
 
 	def get_context(self, slug=None):
 	
-		form_cls = model_form(RecipeInDatabase, exclude=('created_at', 'slug', 'comments', 'ingredients'))
-		form2_cls = model_form(Ingredient)
+		form_cls = model_form(RecipeInDatabase, exclude=('created_at', 'author', 'slug', 'comments', 'ingredients'))
+		#form2_cls = model_form(Ingredient)
 
 		if slug:
 			recipe = RecipeInDatabase.objects.get_or_404(slug=slug)
 			ingredient = recipe.ingredients
 			if request.method == 'POST':
 				form = form_cls(request.form, initial=recipe._data)
-				form2 = form2_cls(request.form, initial=ingredient._data)
+				#form2 = form2_cls(request.form, initial=ingredient._data)
 			else:
 				form = form_cls(obj=recipe)
-				form2 = form2_cls(obj=ingredient)
+				#form2 = form2_cls(obj=ingredient)
 		else:
 			recipe = RecipeInDatabase()
 			ingredient = Ingredient()
 			form = form_cls(request.form)
-			form2 = form2_cls(request.form)
+			#form2 = form2_cls(request.form)
 
 		context = {
 			"recipe": recipe,
 			"ingredients": ingredient,
 			"form": form,
-			"form2": form2,
+#			"form2": form2,
 			"create": slug is None
 		}
 		return context
@@ -105,23 +105,31 @@ class AddRecipeView(MethodView):
 		return render_template('addRecipe.html', **context)
 
 	def post(self, slug):
+		if(current_user.is_authenticated() == False):
+			return redirect('users.login')
+
 		context = self.get_context(slug)
 		form = context.get('form')
-		form2 = context.get('form2')
+#		form2 = context.get('form2')
 
 		if form.validate():
 			recipe = context.get('recipe')
 			form.populate_obj(recipe)
+
+			temp = current_user.get_id()
+			#currentUser = User.objects.get(username=temp)
+			recipe.author = temp
+
 			recipe.slug = recipe.title + ' - By: ' + recipe.author
 			
 			ingredient = context.get('ingredients')
-			form2.populate_obj(ingredient)
+#			form2.populate_obj(ingredient)
 
-			recipe.ingredients.append(ingredient)
+#			recipe.ingredients.append(ingredient)
 			recipe.save()
 
 			return redirect(url_for('users.home', slug=slug))
-		return render_template('testDetail.html', **context)
+		return render_template('recipe.html', **context)
 
 
 users.add_url_rule('/', view_func=HomeView.as_view('home'))

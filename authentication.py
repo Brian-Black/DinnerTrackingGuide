@@ -61,7 +61,7 @@ auth = Blueprint('auth', __name__)
 def login():
 	print 'login called'
 	if current_user.is_authenticated():
-		next_url = request.args.get('next') or url_for('index')
+		next_url = request.args.get('next') or url_for('users.home')
 		return redirect(next_url)
 	next_url=request.args.get('next') or request.referrer or None
 	callback='http://dinnerplanner.example.com:5000/auth/oauth'
@@ -72,7 +72,7 @@ def login():
 @google.authorized_handler
 def authorized(resp):
 	print '*** authorized()'
-	next_url = request.args.get('next') or url_for('index')
+	next_url = request.args.get('next') or url_for('users.home')
 	if resp is None:
 		flash(u'You denied the request to sign in.')
 		return redirect(next_url)

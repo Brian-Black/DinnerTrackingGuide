@@ -1,20 +1,21 @@
-{% extends "design_homepage_copy.html" %}
+{% extends "homepage.html" %}
 
 {% block page_contents %}
 	<table>
 		<thead>
-			<th>Title</th>
-			<th>Created</th>
+			<th>Recipe Title  </th>
+			<th>Author  </th>
+			<th>Created  </th>
 			<th>Actions</th>
 		</thead>
 		<tbody>
 	{% for recipe in recipes %}
 		<tr>
 			<th><a href="{{ url_for("users.detail", slug=recipe.slug) }}">{{ recipe.slug }}</th>
+			<td>{{ recipe.author }}</td>
 			<td>{{ recipe.created_at.strftime('%H:%M %Y-%m-%d') }}</td>
 			<td><a href="{{ url_for("users.edit", slug=recipe.slug) }}" class="btn primary">Edit</a></td>
 		</tr>
-		<h2><a href="{{ url_for('users.detail', slug=recipe.slug) }}">{{ recipe.title }}</a></h2>
 	{% endfor %}
 		</tbody>
 	</table>

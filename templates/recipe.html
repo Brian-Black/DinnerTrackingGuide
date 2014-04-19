@@ -84,10 +84,11 @@
 	{% endif %}
 	
     <h2>Directions</h2>
-	{% if dir %}
-        {% for direction in dir %}
+	{% if recipe.instructions %}
+       <p>{{ recipe.instructions }}</p>
+        <!-- {% for dir in instructions %}
 			<p>{{direction}}</p>
-		{% endfor %}
+		{% endfor %} -->
 	{% else %}
       <p>Just wing it!!! There aren't any directions here!</p>
       </p>
