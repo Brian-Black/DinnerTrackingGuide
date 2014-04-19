@@ -1,7 +1,7 @@
 {% extends "base_copy.html" %}
-  
+
   <head data-gwd-animation-mode="quickMode">
-    <title>Recipe</title>
+    <title>{{recipe.title}}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="generator" content="Google Web Designer 1.0.4.0305">
     <style type="text/css">
@@ -25,8 +25,8 @@
   </head>
 
 {% block title %}
-    {% if name %}
-		{{name}}
+    {% if recipe.title %}
+		{{recipe.title}}
     {% else %}
 		Unnamed
     {% endif %}
@@ -43,7 +43,7 @@
 		<a href="{{ addToShoppingList(ingr) }}" class="btn primary">Add to Shopping List</a>
 		&nbsp;
 		&nbsp;
-		<a href="{{ url_for('recipes.create') }}" class="btn primary">Edit Recipe</a>
+		<a href="{{ url_for('users.create') }}" class="btn primary">Edit Recipe</a>
 		&nbsp;
 		&nbsp;
 		Search</h4>
@@ -52,12 +52,12 @@
 
 {% block page_contents %}
     <h2>Information</h2>
-    {% if preptime %}
+    {% if recipe.cook_time %}
 	<p>
-		Ready in {{preptime}} .
+		Ready in {{ recipe.cook_time }} .
 		<br>
-        {% if amount %}
-			Makes {{amount}}.
+        {% if recipe.servings %}
+			Makes {{recipe.servings}}.
         {% else %}
 			Makes ???.
         {% endif %}
@@ -65,8 +65,8 @@
     
     {% else %}
     <p>Ready in ???.
-        {% if amount %}
-			Makes {{amount}}.
+        {% if recipe.servings %}
+			Makes {{recipe.servings}}.
         {% else %}
 			Makes ???.
         {% endif %}
@@ -75,9 +75,9 @@
 	
 	
 	<h2>Ingredients</h2>
-	{% if ingr %}
-		{% for ingredient in ingr %}
-			<p>{{ingredient}}</p>
+	{% if recipe.ingredients %}
+		{% for ingr in recipe.ingredients %}
+			<p>{{ingr.item}} {{ingr.number}} {{ingr.measure_tool}}</p>
 		{% endfor %}
 	{% else %}
 		<p>"There aren't any ingredients here."</p>

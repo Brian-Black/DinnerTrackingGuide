@@ -1,5 +1,6 @@
 from flask import Blueprint, request, redirect, render_template, url_for
 from flask.views import MethodView
+from DinnerTrackingGuide.models import Users, Recipe, Comment, Ingredient
 from DinnerTrackingGuide.models import RecipeInDatabase, Comment
 from flask.ext.mongoengine.wtf import model_form
 from DinnerTrackingGuide.auth import requires_auth
@@ -9,7 +10,8 @@ users = Blueprint('users', __name__, template_folder='templates')
 
 class HomeView(MethodView):
 	def get(self):
-		return render_template('base.html')
+		recipes = Recipe.objects.all()
+		return render_template('testLanding.html', recipes=recipes)
 
 class UserView(MethodView):
 
@@ -30,7 +32,7 @@ class UserView(MethodView):
 
 		if current_user.is_authenticated():
 			user = self.get_context(slug)
-			return render_template('testLanding.html', user=user)
+			return render_template('testLanding.html')
 		else:
 			return render_template('login.html', **context)
 
@@ -40,7 +42,7 @@ class RecipeView(MethodView):
 
 	def get_context(self, slug=None):
 
-		recipe = Recipe.objects(slug=slug)
+		recipe = Recipe.objects.get_or_404(slug=slug)
 		form = self.form(request.form)
 		
 		context = {
@@ -51,9 +53,9 @@ class RecipeView(MethodView):
 
 	def get(self, slug):
 		context = self.get_context(slug)
-		return render_template('testDetail.html', **context)
+		return render_template('recipe.html', **context)
 
-	def post(self, slug, author):
+	def post(self, slug):
 		context = self.get_context(slug)
 		form = context.get('form')
 
@@ -65,28 +67,36 @@ class RecipeView(MethodView):
 			recipe.comments.append(comment)
 			recipe.save()
 
-			return redirect(url_for('users.detail', slug=slug, author=author))
-		return render_template('testDetail.html', **context)
+			return redirect(url_for('users.detail', slug=slug))
+		return render_template('recipe.html', **context)
 
 class AddRecipeView(MethodView):
 
 	def get_context(self, slug=None):
 	
-		form_cls = model_form(Recipe, exclude=('created_at', 'slug', 'comments', 'totalRatings', 'NumberOfRatings'))
+		form_cls = model_form(Recipe, exclude=('created_at', 'slug', 'comments', 'ingredients'))
+		form2_cls = model_form(Ingredient)
 
 		if slug:
-			recipe = Users.recipes.get_or_404(slug=slug)
+			recipe = Recipe.objects.get_or_404(slug=slug)
+			ingredient = recipe.ingredients
 			if request.method == 'POST':
 				form = form_cls(request.form, initial=recipe._data)
+				form2 = form2_cls(request.form, initial=ingredient._data)
 			else:
 				form = form_cls(obj=recipe)
+				form2 = form2_cls(obj=ingredient)
 		else:
-			recipe = RecipeInDatabase()
+			recipe = Recipe()
+			ingredient = Ingredient()
 			form = form_cls(request.form)
+			form2 = form2_cls(request.form)
 
 		context = {
 			"recipe": recipe,
+			"ingredients": ingredient,
 			"form": form,
+			"form2": form2,
 			"create": slug is None
 		}
 		return context
@@ -98,10 +108,17 @@ class AddRecipeView(MethodView):
 	def post(self, slug):
 		context = self.get_context(slug)
 		form = context.get('form')
+		form2 = context.get('form2')
 
 		if form.validate():
 			recipe = context.get('recipe')
 			form.populate_obj(recipe)
+			recipe.slug = recipe.title + ' - By: ' + recipe.author
+			
+			ingredient = context.get('ingredients')
+			form2.populate_obj(ingredient)
+
+			recipe.ingredients.append(ingredient)
 			recipe.save()
 
 			return redirect(url_for('users.home', slug=slug))
@@ -112,4 +129,4 @@ class AddRecipeView(MethodView):
 users.add_url_rule('/login/', defaults={'slug': None}, view_func=UserView.as_view('login'))
 users.add_url_rule('/<slug>/', view_func=RecipeView.as_view('detail'))
 users.add_url_rule('/create/', defaults={'slug': None}, view_func=AddRecipeView.as_view('create'))
-users.add_url_rule('/edit/<slug>/', view_func=RecipeView.as_view('edit'))
+users.add_url_rule('/edit/<slug>/', view_func=AddRecipeView.as_view('edit'))

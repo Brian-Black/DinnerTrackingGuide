@@ -1,5 +1,8 @@
 from flask import Flask, url_for, request, render_template, Blueprint
 from flask.ext.login import login_required, current_user
+from flask import Flask, url_for, request
+from flask import render_template
+from flask.ext.login import LoginManager
 from flask.ext.mongoengine import MongoEngine
 from config import app, db
 from authentication import login_manager
@@ -60,11 +63,14 @@ def viewRecipe():
 				   ]
 		
 	directions = [
-					  "In a small bowl, dissolve yeast in 1/4 cup warm milk. Let stand until creamy, about 10 minutes.",
-					  " In a large bowl, whisk together the egg yolks, 1/4 cup of the warm milk and the melted butter. Stir in the yeast mixture, sugar, salt and vanilla. Stir in the remaining 2 1/2 cups milk alternately with the flour, ending with the flour. Beat the egg whites until they form soft peaks; fold into the batter. Cover the bowl tightly with plastic wrap. Let rise in a warm place until doubled in volume, about 1 hour.",
-					  "Preheat the waffle iron. Brush with oil and spoon about 1/2 cup (or as recommended by manufacturer) onto center of iron. Close the lid and bake until it stops steaming and the waffle is golden brown. Serve immediately or keep warm in 200 degree oven."
-					  ]
-	return render_template('recipe.html',name="Belgium Waffles",preptime="1 hr 35 min",amount="one dozen waffles",ingr=ingredients,dir=directions)
+					"In a small bowl, dissolve yeast in 1/4 cup warm milk. Let stand until creamy, about 10 minutes.",
+					" In a large bowl, whisk together the egg yolks, 1/4 cup of the warm milk and the melted butter. Stir in the yeast mixture, sugar, salt and vanilla. Stir in the remaining 2 1/2 cups milk alternately with the flour, ending with the flour. Beat the egg whites until they form soft peaks; fold into the batter. Cover the bowl tightly with plastic wrap. Let rise in a warm place until doubled in volume, about 1 hour.",
+						"Preheat the waffle iron. Brush with oil and spoon about 1/2 cup (or as recommended by manufacturer) onto center of iron. Close the lid and bake until it stops steaming and the waffle is golden brown. Serve immediately or keep warm in 200 degree oven."
+	]
+	
+#	return render_template('design_recipe.html',name="Belgium Waffles",preptime="1 hr 35 min",amount="one dozen waffles",ingr=ingredients,dir=directions)
+#	return render_template('recipe.html',name="Belgium Waffles",preptime="1 hr 35 min",amount="one dozen waffles",ingr=ingredients,dir=directions)
+	
 
 # WHAT DOES THIS EVEN DO???
 @app.route('/recipe/ice/')
