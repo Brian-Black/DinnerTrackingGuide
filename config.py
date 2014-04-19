@@ -15,8 +15,8 @@ database.connection.drop_database('Recipes')
 
 # You must configure these 3 values from Google APIs console
 # https://console.developers.google.com/project/apps~dinner-planner-cs360/apiui/credential
-GOOGLE_CLIENT_ID = ''
-GOOGLE_CLIENT_SECRET = ''
+GOOGLE_CLIENT_ID = '318054669713-blfppvbs8d8n8t9sat3khkfd9fl3t18v.apps.googleusercontent.com'
+GOOGLE_CLIENT_SECRET = 'CrPQqpJAh7JncCex1IXOAQn1'
 REDIRECT_URI = '/index'  # one of the Redirect URIs from Google APIs console
 
 # generate with os.urandom(24) in a Python shell
