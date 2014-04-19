@@ -31,10 +31,6 @@ class Comment(db.EmbeddedDocument):
 	body = db.StringField(verbose_name="Comment", required=True)
 	author = db.StringField(verbose_name="Name", max_length=255, required=True)
 
-<<<<<<< HEAD
-
-class User(db.Document):
-=======
 class Ingredient(db.EmbeddedDocument):
 	item = db.StringField(verbose_name="item", required=True)
 	#number represents the quantity of an item
@@ -42,8 +38,7 @@ class Ingredient(db.EmbeddedDocument):
 	#string to represent the idea of a cup, tablespoon, teaspoon ect
 	measure_tool = db.StringField(verbose_name="measure_tool")
 
-class Users(db.Document):
->>>>>>> fbfd74ad87bde0f4253afece4f457bd9b9b267c9
+class User(db.Document):
 	created_at = db.DateTimeField(default=datetime.datetime.now, required=True)
 	username = db.StringField(required=True)
 	email = db.StringField(required=True)

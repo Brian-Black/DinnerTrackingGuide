@@ -1,7 +1,6 @@
 from flask import Blueprint, request, redirect, render_template, url_for
 from flask.views import MethodView
-from DinnerTrackingGuide.models import Users, Recipe, Comment, Ingredient
-from DinnerTrackingGuide.models import RecipeInDatabase, Comment
+from DinnerTrackingGuide.models import User, RecipeInDatabase, Comment, Ingredient
 from flask.ext.mongoengine.wtf import model_form
 from DinnerTrackingGuide.auth import requires_auth
 from flask.ext.login import current_user
