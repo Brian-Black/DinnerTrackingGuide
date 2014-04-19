@@ -14,26 +14,14 @@ class HomeView(MethodView):
 
 class UserView(MethodView):
 
-	def get_context(self, slug=None):
-		#user = Users.objects.get_or_404(slug=slug)
-		form = model_form(Users, exclude=('created_at'))
-
-		context = {
-		#	"user": user,
-			"form": form
-		}
-
-		return context
-
-	def get(self, slug):
-		#form = model_form(Recipe, exclude=('created_at', 'comments'))
-		context = self.get_context(slug)
-
+	def get(self):
+		
 		if current_user.is_authenticated():
-			user = self.get_context(slug)
-			return render_template('testLanding.html')
+			currUser = User.objects.get(id_token=current_user.get_id())
+			recipes = RecipeInDatabase.objects.filter(author=currUser.username)
+			return render_template('testLanding.html', recipes=recipes)
 		else:
-			return render_template('login.html', **context)
+			return redirect('/auth/login')
 
 class RecipeView(MethodView):
 
@@ -116,9 +104,9 @@ class AddRecipeView(MethodView):
 			recipe = context.get('recipe')
 			form.populate_obj(recipe)
 
-			temp = current_user.get_id()
-			#currentUser = User.objects.get(username=temp)
-			recipe.author = temp
+			temp = User.objects.get(id_token=current_user.get_id())
+
+			recipe.author = temp.username
 
 			recipe.slug = recipe.title + ' - By: ' + recipe.author
 			
@@ -135,5 +123,6 @@ class AddRecipeView(MethodView):
 users.add_url_rule('/', view_func=HomeView.as_view('home'))
 users.add_url_rule('/login/', defaults={'slug': None}, view_func=UserView.as_view('login'))
 users.add_url_rule('/<slug>/', view_func=RecipeView.as_view('detail'))
+users.add_url_rule('/myRecipes/', view_func=UserView.as_view('myRecipes'))
 users.add_url_rule('/create/', defaults={'slug': None}, view_func=AddRecipeView.as_view('create'))
 users.add_url_rule('/edit/<slug>/', view_func=AddRecipeView.as_view('edit'))

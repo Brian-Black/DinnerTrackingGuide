@@ -1,16 +1,17 @@
-{% extends "base.html" %}
+{% extends "homepage.html" %}
 {% import "_forms.html" as forms %}
 <!-- {% import "_forms_ingredients.html" as forms2 %}
  -->
-{% block content %}
+{% block title %}
 	<h2>
 		{% if create %}
-			Add new Recipe
+			Add New Recipe
 		{% else %}
 			Edit Recipe
 		{% endif %}
 	</h2>
-
+{% endblock %}
+{% block page_contents %}
 	<form action="?{{ request.query_string }}" method="post">
 		{{ forms.render(form) }}
 		<!-- {{ forms.render(form2) }}
