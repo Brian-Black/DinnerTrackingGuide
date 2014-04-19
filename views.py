@@ -108,7 +108,7 @@ class AddRecipeView(MethodView):
 		return render_template('testDetail.html', **context)
 
 
-users.add_url_rule('/', view_func=HomeView.as_view('home'))
+#users.add_url_rule('/', view_func=HomeView.as_view('home'))
 users.add_url_rule('/login/', defaults={'slug': None}, view_func=UserView.as_view('login'))
 users.add_url_rule('/<slug>/', view_func=RecipeView.as_view('detail'))
 users.add_url_rule('/create/', defaults={'slug': None}, view_func=AddRecipeView.as_view('create'))

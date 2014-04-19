@@ -1,13 +1,8 @@
 from flask import Flask, url_for, request, render_template, Blueprint
-
 from flask.ext.login import login_required, current_user
-
 from flask.ext.mongoengine import MongoEngine
-
-from config import app
-from config import db
+from config import app, db
 from authentication import login_manager
-
 
 def register_blueprints(app):
 	from DinnerTrackingGuide.views import users
@@ -15,6 +10,7 @@ def register_blueprints(app):
 
 register_blueprints(app)
 
+# HOMEPAGE
 @app.route('/')
 @app.route('/index')
 def index():
@@ -28,28 +24,27 @@ def index():
 	name = None
 	if current_user.is_authenticated():
 		login = True 
-		if current_user.name:
-			name = current_user.name
-		else:
+		if current_user.username:
 			name = current_user.username
 
-	#return render_template('design_homepage.html')
 	all_the_recipes = [
 						"Belgium Waffles",
 						"Blueberry Muffins"
 					]	
-	return render_template('design_homepage_copy.html', allrecipes=all_the_recipes)
+	return render_template('homepage.html', allrecipes=all_the_recipes)
 
+# HELLO (does this actually do anything?)
 @app.route('/hello/')
 @app.route('/hello/<name>')
 def hello(name=None):
 	return render_template('base.html', name=None)
-#return render_template('design_homepage.html')
 
+# ADD_RECIPE - do we need this anymore?
 @app.route('/add_recipe/')
 def addRecipe():
 	return render_template('design_recipe.html')
 
+# RECIPE
 @app.route('/recipe/')
 #@app.route('/recipe/<name>/<user>')
 def viewRecipe():
@@ -69,49 +64,34 @@ def viewRecipe():
 					  " In a large bowl, whisk together the egg yolks, 1/4 cup of the warm milk and the melted butter. Stir in the yeast mixture, sugar, salt and vanilla. Stir in the remaining 2 1/2 cups milk alternately with the flour, ending with the flour. Beat the egg whites until they form soft peaks; fold into the batter. Cover the bowl tightly with plastic wrap. Let rise in a warm place until doubled in volume, about 1 hour.",
 					  "Preheat the waffle iron. Brush with oil and spoon about 1/2 cup (or as recommended by manufacturer) onto center of iron. Close the lid and bake until it stops steaming and the waffle is golden brown. Serve immediately or keep warm in 200 degree oven."
 					  ]
-#	return render_template('design_recipe.html',name="Belgium Waffles",preptime="1 hr 35 min",amount="one dozen waffles",ingr=ingredients,dir=directions)
 	return render_template('recipe.html',name="Belgium Waffles",preptime="1 hr 35 min",amount="one dozen waffles",ingr=ingredients,dir=directions)
 
+# WHAT DOES THIS EVEN DO???
 @app.route('/recipe/ice/')
 def makeIce():
 	from models import Recipe
 	collection = db.recipe.Objects
 	ice = db.Recipes.find_one({"title": "ICE"})
-	#ice = db.find()
 	print ice['title']
-	#if(ice != null):
 	return render_template('design_recipe_new.html',name=ice['title'],preptime="1 hr 35 min",amount="one dozen waffles",dir=ice['instructions'] )
-	#else:
-	 #	return render_template('hello.html', name=None)
 
-shoppingList = [
-					"12 eggs",
-					"2 gallons milk",
-					"Cream Cheese",
-					"3/4 C butter",
-					"2 t lemon pepper",
-					"3 T vanilla extract",
-					"4 C all-purpose flour"
-				]
+# SHOPPING_LIST
+shoppingList = []
 @app.route('/shopping/')
 def shopping():
 	#return render_template('design_shopping_list.html', items=itmesForList)
 	return render_template('shopping_list.html', items=shoppingList)
 
+# MY_RECIPES
 @app.route('/my_recipes/')
-#@login_required
+@login_required
 def myRecipe():
-	if not current_user.is_authenticated():
-		print "current user is not authenticated"
-	else:
-		print "current user IS authenticated"
-	#return render_template('design_myRecipes.html')
 	all_the_recipes = [
 					   "Belgium Waffles"
 					   ]	
 	return render_template('myRecipes.html', myrecipes=all_the_recipes)
-#return render_template('myRecipes.html')
 
+# add ingredients to shopping list
 @app.context_processor
 def utility_processor():
 	def addToShoppingList(ingredients):
@@ -119,6 +99,4 @@ def utility_processor():
 		return '/shopping/'
 	return dict(addToShoppingList=addToShoppingList)
 
-if __name__ == '__main__':
-	app.run(debug=True)
 

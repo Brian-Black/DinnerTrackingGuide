@@ -2,6 +2,7 @@ import datetime
 from flask import url_for
 from DinnerTrackingGuide import db
 
+
 class RecipeInDatabase(db.EmbeddedDocument):
 	created_at = db.DateTimeField(default=datetime.datetime.now, required=True)
 	title = db.StringField(max_length=255, required=True)
@@ -36,6 +37,8 @@ class User(db.Document):
 	username = db.StringField(required=True)
 	email = db.StringField(required=True)
 	slug = db.StringField(max_length=255, required=True)
+	id_token = db.StringField(required=True)
+	authenticated = db.StringField(required=True)
 	
 	def get_absolute_url(self):
 		return url_for('my_recipes', kwargs={"slug": self.slug})
@@ -48,34 +51,20 @@ class User(db.Document):
 		'indexes': ['-created_at', 'slug'],
 		'ordering': ['-created_at']
 	}
-    
-    	def __init__(self):
-		self.authenticated = None
-		self.user_id = 'guest'
-	
-	def set_authenticated(self, auth):
-		self.authenticated = auth
 	
 	def is_authenticated(self):
-		#print 'is_authenticated called on user with id %s' % self.user_id
-		#if(self.authenticated):
-			#print 'True'
-		#else:
-			#print 'False'
-		return self.authenticated
+		return self.authenticated == 'True'
 
 	def is_active(self):
 		return True;
 
 	def is_anonymous(self):
 		return None
-	
-	def set_id(self, id):
-		self.user_id = id
 
 	def get_id(self):
-		#print 'get_id called - returning %s' % self.user_id
-		return self.user_id
+		return self.id_token
 
 
-        
+
+
+
