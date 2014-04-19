@@ -9,7 +9,7 @@ users = Blueprint('users', __name__, template_folder='templates')
 
 class HomeView(MethodView):
 	def get(self):
-		recipes = Recipe.objects.all()
+		recipes = RecipeInDatabase.objects.all()
 		return render_template('testLanding.html', recipes=recipes)
 
 class UserView(MethodView):
@@ -41,7 +41,7 @@ class RecipeView(MethodView):
 
 	def get_context(self, slug=None):
 
-		recipe = Recipe.objects.get_or_404(slug=slug)
+		recipe = RecipeInDatabase.objects.get_or_404(slug=slug)
 		form = self.form(request.form)
 		
 		context = {
@@ -73,11 +73,11 @@ class AddRecipeView(MethodView):
 
 	def get_context(self, slug=None):
 	
-		form_cls = model_form(Recipe, exclude=('created_at', 'slug', 'comments', 'ingredients'))
+		form_cls = model_form(RecipeInDatabase, exclude=('created_at', 'slug', 'comments', 'ingredients'))
 		form2_cls = model_form(Ingredient)
 
 		if slug:
-			recipe = Recipe.objects.get_or_404(slug=slug)
+			recipe = RecipeInDatabase.objects.get_or_404(slug=slug)
 			ingredient = recipe.ingredients
 			if request.method == 'POST':
 				form = form_cls(request.form, initial=recipe._data)
@@ -86,7 +86,7 @@ class AddRecipeView(MethodView):
 				form = form_cls(obj=recipe)
 				form2 = form2_cls(obj=ingredient)
 		else:
-			recipe = Recipe()
+			recipe = RecipeInDatabase()
 			ingredient = Ingredient()
 			form = form_cls(request.form)
 			form2 = form2_cls(request.form)
@@ -124,7 +124,7 @@ class AddRecipeView(MethodView):
 		return render_template('testDetail.html', **context)
 
 
-#users.add_url_rule('/', view_func=HomeView.as_view('home'))
+users.add_url_rule('/', view_func=HomeView.as_view('home'))
 users.add_url_rule('/login/', defaults={'slug': None}, view_func=UserView.as_view('login'))
 users.add_url_rule('/<slug>/', view_func=RecipeView.as_view('detail'))
 users.add_url_rule('/create/', defaults={'slug': None}, view_func=AddRecipeView.as_view('create'))
