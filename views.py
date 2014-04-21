@@ -93,13 +93,15 @@ class AddRecipeView(MethodView):
 		return render_template('addRecipe.html', **context)
 
 	def post(self, slug):
+		print '!!! - post called'
 		if(current_user.is_authenticated() == False):
-			return redirect('users.login')
+			return redirect(url_for('users.login'))
 
+		print '!!! - logged in user'
 		context = self.get_context(slug)
 		form = context.get('form')
-#		form2 = context.get('form2')
-
+		
+		print '!!! - got form'
 		if form.validate():
 			recipe = context.get('recipe')
 			form.populate_obj(recipe)
