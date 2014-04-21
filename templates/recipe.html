@@ -40,7 +40,7 @@
 		<a href="{{url_for('users.myRecipes') }}" class="btn primary">Add to My Recipes</a>
 		&nbsp;
 		&nbsp;
-		<a href="{{ addToShoppingList(recipe.ingredients.split('\n')) }}" class="btn primary">Add to Shopping List</a>
+		<a href="{{ addToShoppingList(recipe.ingredients) }}" class="btn primary">Add to Shopping List</a>
 		&nbsp;
 		&nbsp;
 		<a href="{{ url_for("users.edit", slug=recipe.slug) }}" class="btn primary">Edit Recipe</a>

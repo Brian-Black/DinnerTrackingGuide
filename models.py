@@ -42,7 +42,8 @@ class User(db.Document):
 	slug = db.StringField(max_length=255, required=True)
 	id_token = db.StringField(required=True)
 	authenticated = db.StringField(required=True)
-	
+	shoppingList = db.StringField()
+
 	def get_absolute_url(self):
 		return url_for('my_recipes', kwargs={"slug": self.slug})
 	
