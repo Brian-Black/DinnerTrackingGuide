@@ -94,7 +94,7 @@ class AddRecipeView(MethodView):
 
 	def post(self, slug):
 		if(current_user.is_authenticated() == False):
-			return redirect('users.login')
+			return redirect( url_for('users.login'))
 
 		context = self.get_context(slug)
 		form = context.get('form')
@@ -121,7 +121,7 @@ class AddRecipeView(MethodView):
 
 
 users.add_url_rule('/', view_func=HomeView.as_view('home'))
-users.add_url_rule('/login/', defaults={'slug': None}, view_func=UserView.as_view('login'))
+users.add_url_rule('/login/', view_func=UserView.as_view('login'))
 users.add_url_rule('/<slug>/', view_func=RecipeView.as_view('detail'))
 users.add_url_rule('/myRecipes/', view_func=UserView.as_view('myRecipes'))
 users.add_url_rule('/create/', defaults={'slug': None}, view_func=AddRecipeView.as_view('create'))
