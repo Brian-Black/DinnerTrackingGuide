@@ -42,4 +42,16 @@ def utility_processor():
 			return '/shopping/'
 		else:
 			return redirect(url_for('users.login'))
-	return dict(addToShoppingList=addToShoppingList)
+
+	def clearShoppingList():
+		if current_user.is_authenticated():
+			currUser = User.objects.get(id_token=current_user.get_id())
+			currUser.shoppingList = ""
+			currUser.save();
+			return '/shopping/'
+
+	return dict(addToShoppingList=addToShoppingList, clearShoppingList=clearShoppingList)
+
+	
+		
+
