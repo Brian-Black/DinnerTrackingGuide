@@ -107,7 +107,7 @@ class AddRecipeView(MethodView):
 
 			recipe.author = temp.username
 
-			recipe.slug = recipe.title + ' - By: ' + recipe.author
+			recipe.slug = recipe.title
 			
 			#ingredient = context.get('ingredients')
 			#form2.populate_obj(ingredient)
