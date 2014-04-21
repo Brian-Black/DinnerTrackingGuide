@@ -19,7 +19,7 @@ class UserView(MethodView):
 		if current_user.is_authenticated():
 			currUser = User.objects.get(id_token=current_user.get_id())
 			recipes = RecipeInDatabase.objects.filter(author=currUser.username)
-			return render_template('testLanding.html', recipes=recipes)
+			return render_template('myRecipes.html', myrecipes=recipes)
 		else:
 			return redirect('/auth/login')
 

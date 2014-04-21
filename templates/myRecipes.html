@@ -43,10 +43,10 @@
 
 {% block top_banner_contents %}
 <span class="gwd-span-links">
-	<h4><a href="/index" class="btn primary">Home</a>
+	<h4><a href="{{ url_for('users.home') }}" class="btn primary">Home</a>
 		&nbsp;
 		&nbsp;
-		<a href="{{ url_for('viewRecipe') }}" class="btn primary">Add Recipe</a>
+		<a href="{{ url_for('users.create') }}" class="btn primary">Add Recipe</a>
 		&nbsp;
 		&nbsp;
 		<a href="/shopping/" class="btn primary">Shopping List</a>
@@ -59,7 +59,7 @@
 {% block page_contents %}
 	{% if myrecipes %}
 		{% for recipe in myrecipes %}
-			<p><a href="/recipe/"> {{ recipe }} </a></p>
+			<p><a href="{{ url_for("users.detail", slug=recipe.slug) }}"> {{ recipe }} </a></p>
 		{% endfor %}
 	{% else %}
 		<p>There aren't any recipes yet.</p>
