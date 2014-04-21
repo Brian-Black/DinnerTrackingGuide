@@ -11,7 +11,7 @@ class RecipeInDatabase(db.Document):
 	servings = db.StringField(max_length=255, required=True)
 	cook_time = db.StringField(max_length=255, required=True)
 	instructions = db.StringField(required=True)
-	ingredients = db.ListField(db.EmbeddedDocumentField('Ingredient'))
+	ingredients = db.StringField()
 	comments = db.ListField(db.EmbeddedDocumentField('Comment'))
 
 	def get_absolute_url(self):
@@ -32,8 +32,8 @@ class Comment(db.EmbeddedDocument):
 	author = db.StringField(verbose_name="Name", max_length=255, required=True)
 
 class Ingredient(db.EmbeddedDocument):
-	Ingredient = db.StringField(verbose_name="item", required=True)
-	ammount = db.StringField(verbose_name="ammount")
+	Ingredient = db.StringField(verbose_name="Ingredients", required=True)
+	#ammount = db.StringField(verbose_name="ammount")
 
 class User(db.Document):
 	created_at = db.DateTimeField(default=datetime.datetime.now, required=True)

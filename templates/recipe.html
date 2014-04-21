@@ -76,8 +76,8 @@
 	
 	<h2>Ingredients</h2>
 	{% if recipe.ingredients %}
-		{% for ingr in recipe.ingredients %}
-			<p>{{ingr.item}} {{ingr.number}} {{ingr.measure_tool}}</p>
+		{% for ingr in recipe.ingredients.split('\n') %}
+			<p>{{ ingr }}</p>
 		{% endfor %}
 	{% else %}
 		<p>"There aren't any ingredients here."</p>
@@ -86,9 +86,6 @@
     <h2>Directions</h2>
 	{% if recipe.instructions %}
        <p>{{ recipe.instructions }}</p>
-        <!-- {% for dir in instructions %}
-			<p>{{direction}}</p>
-		{% endfor %} -->
 	{% else %}
       <p>Just wing it!!! There aren't any directions here!</p>
       </p>
