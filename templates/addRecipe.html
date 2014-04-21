@@ -1,4 +1,4 @@
-{% extends "homepage.html" %}
+{% extends "base_copy.html" %}
 {% import "_forms.html" as forms %}
 <!-- {% import "_forms_ingredients.html" as forms2 %}
  -->
@@ -11,6 +11,19 @@
 		{% endif %}
 	</h2>
 {% endblock %}
+
+{% block top_banner_contents %}
+	<span class="gwd-span-links">
+		<h4><a href="{{ url_for('users.home') }}" class="btn primary">Home</a>
+		&nbsp;
+		&nbsp;
+		<a href="{{ url_for('users.myRecipes') }}" class="btn primary">My Recipes</a>
+		&nbsp;
+		&nbsp;
+		<a href="/shopping/" class="btn primary">Shopping List</a></h4>
+	</span>
+{% endblock %}
+
 {% block page_contents %}
 	<form action="?{{ request.query_string }}" method="post">
 		{{ forms.render(form) }}
