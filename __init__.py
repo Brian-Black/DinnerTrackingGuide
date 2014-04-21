@@ -1,4 +1,4 @@
-from flask import Flask, url_for, request, render_template, Blueprint
+from flask import Flask, url_for, request, render_template, Blueprint, redirect
 from flask.ext.login import login_required, current_user
 from flask import Flask, url_for, request
 from flask import render_template
@@ -34,7 +34,8 @@ def utility_processor():
 		if current_user.is_authenticated():
 			currUser = User.objects.get(id_token=current_user.get_id())
 			foo = '\n'
-			foo += currUser.shoppingList
+			if currUser.shoppingList is not None:
+				foo += currUser.shoppingList
 			currUser.shoppingList = ingredients + foo;
 			currUser.save()
 			print "!!! userList contains %s" % currUser.shoppingList

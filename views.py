@@ -89,6 +89,8 @@ class AddRecipeView(MethodView):
 		return context
 
 	def get(self, slug):
+		if(current_user.is_authenticated() == False):
+			return redirect(url_for('users.login'))
 		context = self.get_context(slug)
 		return render_template('addRecipe.html', **context)
 
