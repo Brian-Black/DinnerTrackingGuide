@@ -43,7 +43,7 @@
 		<a href="{{ addToShoppingList(ingr) }}" class="btn primary">Add to Shopping List</a>
 		&nbsp;
 		&nbsp;
-		<a href="{{ url_for('users.create') }}" class="btn primary">Edit Recipe</a>
+		<a href="{{ url_for("users.edit", slug=recipe.slug) }}" class="btn primary">Edit Recipe</a>
 		&nbsp;
 		&nbsp;
 		Search</h4>
