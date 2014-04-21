@@ -64,7 +64,7 @@ def login():
 		next_url = request.args.get('next') or url_for('users.home')
 		return redirect(next_url)
 	next_url=request.args.get('next') or request.referrer or None
-	callback='http://dinnerplanner.example.com:5000/auth/oauth'
+	callback= REDIRECT_URI
 	return google.authorize(callback=callback)
 	#return google.authorize(callback=url_for('oatherized', next=next_url))
 

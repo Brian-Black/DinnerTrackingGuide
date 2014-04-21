@@ -31,7 +31,13 @@
 	<h4><a href="{{ url_for('users.home') }}" class="btn primary">Home</a>
 		&nbsp;
 		&nbsp;
-		<a href="{{ url_for('users.create') }}" class="btn primary">Edit List</a>
+		<a href="{{ url_for('users.create') }}" class="btn primary">Add Recipe</a>
+		&nbsp;
+		&nbsp;
+		<a href="{{ url_for('users.myRecipes') }}" class="btn primary">My Recipes</a>
+		&nbsp;
+		&nbsp;
+		<a href="/auth/logout">Logout</a></h4>
 </span>
 {% endblock %}
   

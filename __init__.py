@@ -23,6 +23,7 @@ def shopping():
 @app.context_processor
 def utility_processor():
 	def addToShoppingList(ingredients):
+		print "shopping list was called with %s" % ingredients
 		shoppingList.extend(ingredients)
 		return '/shopping/'
 	return dict(addToShoppingList=addToShoppingList)
