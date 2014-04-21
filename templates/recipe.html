@@ -34,10 +34,10 @@
 
 {% block top_banner_contents %}
 <span class="gwd-span-links">
-	<h4><a href="/index" class="btn primary">Home</a>
+	<h4><a href="{{ url_for('users.home') }}" class="btn primary">Home</a>
 		&nbsp;
 		&nbsp;
-		<a href="/my_recipes/" class="btn primary">Add to My Recipes</a>
+		<a href="{{url_for('users.myRecipes') }}" class="btn primary">Add to My Recipes</a>
 		&nbsp;
 		&nbsp;
 		<a href="{{ addToShoppingList(ingr) }}" class="btn primary">Add to Shopping List</a>
