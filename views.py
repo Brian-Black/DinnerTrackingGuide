@@ -61,12 +61,12 @@ class AddRecipeView(MethodView):
 
 	def get_context(self, slug=None):
 	
-		form_cls = model_form(RecipeInDatabase, exclude=('created_at', 'author', 'slug', 'comments', 'ingredients'))
+		form_cls = model_form(RecipeInDatabase, exclude=('created_at', 'author', 'slug', 'comments'))
 		#form2_cls = model_form(Ingredient)
 
 		if slug:
 			recipe = RecipeInDatabase.objects.get_or_404(slug=slug)
-			ingredient = recipe.ingredients
+			#ingredient = recipe.ingredients
 			if request.method == 'POST':
 				form = form_cls(request.form, initial=recipe._data)
 				#form2 = form2_cls(request.form, initial=ingredient._data)
@@ -75,15 +75,15 @@ class AddRecipeView(MethodView):
 				#form2 = form2_cls(obj=ingredient)
 		else:
 			recipe = RecipeInDatabase()
-			ingredient = Ingredient()
+			#ingredient = Ingredient()
 			form = form_cls(request.form)
 			#form2 = form2_cls(request.form)
 
 		context = {
 			"recipe": recipe,
-			"ingredients": ingredient,
+			#"ingredients": ingredient,
 			"form": form,
-#			"form2": form2,
+			#"form2": form2,
 			"create": slug is None
 		}
 		return context
@@ -93,15 +93,12 @@ class AddRecipeView(MethodView):
 		return render_template('addRecipe.html', **context)
 
 	def post(self, slug):
-		print '!!! - post called'
 		if(current_user.is_authenticated() == False):
 			return redirect(url_for('users.login'))
 
-		print '!!! - logged in user'
 		context = self.get_context(slug)
 		form = context.get('form')
 		
-		print '!!! - got form'
 		if form.validate():
 			recipe = context.get('recipe')
 			form.populate_obj(recipe)
@@ -112,10 +109,10 @@ class AddRecipeView(MethodView):
 
 			recipe.slug = recipe.title + ' - By: ' + recipe.author
 			
-			ingredient = context.get('ingredients')
-#			form2.populate_obj(ingredient)
+			#ingredient = context.get('ingredients')
+			#form2.populate_obj(ingredient)
 
-#			recipe.ingredients.append(ingredient)
+			#recipe.ingredients.append(ingredient)
 			recipe.save()
 
 			return redirect(url_for('users.home', slug=slug))
