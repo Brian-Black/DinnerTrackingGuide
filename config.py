@@ -15,13 +15,13 @@ database = _get_db()
 
 # You must configure these 3 values from Google APIs console
 # https://console.developers.google.com/project/apps~dinner-planner-cs360/apiui/credential
-GOOGLE_CLIENT_ID = '318054669713-blfppvbs8d8n8t9sat3khkfd9fl3t18v.apps.googleusercontent.com'
+GOOGLE_CLIENT_ID = ''
 
-GOOGLE_CLIENT_SECRET = 'CrPQqpJAh7JncCex1IXOAQn1'
-REDIRECT_URI = 'http://dinnerplanner.example.com:5000/auth/oauth'  # one of the Redirect URIs from Google APIs console
+GOOGLE_CLIENT_SECRET = ''
+REDIRECT_URI = ''  # one of the Redirect URIs from Google APIs console
 
 # generate with os.urandom(24) in a Python shell
-SECRET_KEY = '4)\xfb\t\xf4(>;\xca\xe1.\x8a\x86\x93\xb6}\x91@\xb9a\x8b\xde\x82\x15'
+SECRET_KEY = ''
 
 app.secret_key = SECRET_KEY
 
